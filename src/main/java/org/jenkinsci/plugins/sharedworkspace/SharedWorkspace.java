@@ -112,6 +112,15 @@ public class SharedWorkspace extends JobProperty<AbstractProject<?, ?>> {
 			return "Shared Workspace";
 		}
 
+		public ListBoxModel doFillNameItems() throws IOException, ServletException {
+			ListBoxModel m = new ListBoxModel();
+
+			m.add("NONE", "NONE");
+			for (SharedWorkspace sw : getWorkspaces())
+				m.add(sw.name + " (" + sw.url + ")", sw.name);
+			return m;
+		}
+
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
 			req.bindJSON(this, formData);
